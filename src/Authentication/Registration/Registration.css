@@ -1,0 +1,24 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.registration-columns {
+    display: flex;
+}
+
+.registration-column {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.column-items {
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 5px;
+}

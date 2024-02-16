@@ -2,10 +2,11 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Registration from './Authentication/Registration';
-import Login from './Authentication/Login';
+import Registration from './Authentication/Registration/Registration';
+import Login from './Authentication/Login/Login';
 //import Home from './NavBar/Home/Home';
 import MainPage from './MainPage/MainPage';
+import HomePage from './NavBar/Home/HomePage';
 
 
 const App = () => {
@@ -14,8 +15,9 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Registration />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Registration />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
 
