@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import MainPage from "../../MainPage/MainPage";
 import './Registration.css';
+import Logo from '../../Images/Logo.jpg'
 
 const Registration = () => {
     const initialState = {
@@ -25,7 +25,7 @@ const Registration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (formData.firstname === "") {
             toast.warn("First name is required");
             return;
@@ -60,6 +60,8 @@ const Registration = () => {
             toast.warn("Do not start phone number with '1'")
             return;
         }
+        // debugger;
+        // window.location.href = `/verifyPhoneNumber?firstname=${encodeURIComponent(formData.firstname)}&lastname=${encodeURIComponent(formData.lastname)}&age=${encodeURIComponent(formData.age)}&dateofbirth=${encodeURIComponent(formData.dateofbirth)}&emailAddress=${encodeURIComponent(formData.emailAddress)}&phonenumber=${encodeURIComponent(formData.phonenumber)}&password=${encodeURIComponent(formData.password)}&confirmPassword=${encodeURIComponent(formData.confirmPassword)}`;
         console.log(formData)
 
         try {
@@ -74,13 +76,25 @@ const Registration = () => {
                     confirmPassword: undefined
                 })
             });
+            // debugger;
+            // console.log(response.data)
+            // console.log(response.status)
             if (response.ok) {
-                toast.success("You data has been registered");
+                toast.success("User Has Been Registered Successsfully..");
                 setFormData(initialState);
+                console.log(response.data)
+                console.log(response.status)
 
-            } else {
-                toast.error('Something went wrong! Please fill out all fields and try again');
+            } else if (response.status === 422) {
+                toast.error('Email Already Exists.Try new one');
+            } else if (response.status === 409) {
+                toast.error('Phone Number Already Exists.Try new one');
             }
+            else{
+                toast.error('Error sending data:');
+            }
+            
+            
         } catch (error) {
 
             toast.error('Error sending data:', error);
@@ -90,51 +104,70 @@ const Registration = () => {
 
     return (
         <>
-            <MainPage />
+
             <div className="registration-container">
-                <form onSubmit={handleSubmit}>
-                    <div className="registration-columns">
-                        <div className="registration-column">
-                            <div className="column-items">
-                                <label htmlFor="firstname">First Name: </label>
-                                <input type="text" name="firstname" id="firstname" value={formData.firstname} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <label htmlFor="lastname">Last Name: </label>
-                                <input type="text" name="lastname" id="lastname" value={formData.lastname} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <label htmlFor="age">Age: </label>
-                                <input type="number" name="age" id="age" value={formData.age} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <label htmlFor="dateofbirth">Date OF Birth: </label>
-                                <input type="date" name="dateofbirth" id="dateofbirth" value={formData.dateofbirth} onChange={handleChange} required /><br />
-                            </div>
-                        </div>
-                        <div className="registration-column">
-                            <div className="column-items">
-                                <label htmlFor="emailAddress">Email Address: </label>
-                                <input type="email" name="emailAddress" id="emailAddress" value={formData.emailAddress} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <label htmlFor="phonenumber">Phone Number: </label>
-                                <input type="number" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <label htmlFor="password">Password: </label>
-                                <input type="password" name="password" id="password" value={formData.password} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <label htmlFor="confirmPassword">Confirm Password: </label>
-                                <input type="password" name="confirmPassword" id="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required /><br />
-                            </div>
-                            <div className="column-items">
-                                <button type="submit">Register</button>
-                            </div>
-                        </div>
+                <div className="register-first-box">
+                    <div className="logoo">
+                        <a href="/">
+                            <img src={Logo} alt="NationalSymbol"></img>
+                        </a>
                     </div>
-                </form>
+                    <h3>Electronic Voting System</h3>
+                </div>
+                <div className="second-box-register">
+                    <div className="second-box-title-container">
+                        <h2>Register</h2>
+                    </div>
+                    <div className="form-container-register">
+                        <form onSubmit={handleSubmit}>
+
+                            <div className="registration-columns">
+
+                                <div className="registration-column">
+                                    <div className="column-items">
+                                        <label htmlFor="firstname">First Name: </label>
+                                        <input type="text" name="firstname" id="firstname" value={formData.firstname} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <label htmlFor="lastname">Last Name: </label>
+                                        <input type="text" name="lastname" id="lastname" value={formData.lastname} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <label htmlFor="age">Age: </label>
+                                        <input type="number" name="age" id="age" value={formData.age} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <label htmlFor="dateofbirth">Date OF Birth: </label>
+                                        <input type="date" name="dateofbirth" id="dateofbirth" value={formData.dateofbirth} onChange={handleChange} required /><br />
+                                    </div>
+                                </div>
+                                <div className="registration-column">
+                                    <div className="column-items">
+                                        <label htmlFor="emailAddress">Email Address: </label>
+                                        <input type="email" name="emailAddress" id="emailAddress" value={formData.emailAddress} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <label htmlFor="phonenumber">Phone Number: </label>
+                                        <input type="number" name="phonenumber" id="phonenumber" value={formData.phonenumber} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <label htmlFor="password">Password: </label>
+                                        <input type="password" name="password" id="password" value={formData.password} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <label htmlFor="confirmPassword">Confirm Password: </label>
+                                        <input type="password" name="confirmPassword" id="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required /><br />
+                                    </div>
+                                    <div className="column-items">
+                                        <button type="submit">Register</button>
+                                    </div>
+                                    Already Have an Account.?<a href="/signin">Click here</a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
             </div>
             <ToastContainer />
         </>

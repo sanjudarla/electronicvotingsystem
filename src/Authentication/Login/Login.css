@@ -2,7 +2,78 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    width: 100%;
 }
+.login-first-box{
+    width: 45%;
+    background-color: rgb(45, 44, 44);
+    height: 36pc;
+    color:aliceblue;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+.second-box-login {
+    width: 50%;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(69, 69, 69, 0.1);
+    padding: 20px;
+}
+.second-box-title-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+}
+.form-container form{
+    display: flex;
+    justify-content: center;
+    border: 2px rgb(223, 220, 220) solid;
+    align-items: center;
+}
+.logoo {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+
+}
+.first-box h3{
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.logoo a {
+    display: flex;
+    align-items: center;
+
+}
+
+.logoo img {
+    width: 40px;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 9px;
+    object-fit: contain;
+    
+
+
+}
+
 .login-Form-Fieldset{
     display: flex;
 }

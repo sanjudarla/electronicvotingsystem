@@ -1,0 +1,40 @@
+.main-content-container{
+    display: grid;
+}
+.main-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.blog-block {
+    width: calc(45% - 20px);
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.blog-block h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.blog-block p {
+    font-size: 16px;
+    color: #333;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}

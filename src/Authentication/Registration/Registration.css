@@ -3,20 +3,125 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    width: 100%;
 }
+.register-first-box{
+    width: 45%;
+    background-color: rgb(45, 44, 44);
+    height: 36pc;
+    color:aliceblue;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+.second-box-register {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.second-box-title-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.form-container-register {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+}
+.form-container-register form{
+    display: flex;
+    justify-content: center;
+    border: 2px rgb(209, 206, 206) solid;
+    align-items: center;
+}
+.logoo {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.logoo a {
+    display: flex;
+    align-items: center;
+
+}
+
+.logoo img {
+    width: 40px;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 9px;
+    object-fit: contain;
+    
+
+
+}
+
 
 .registration-columns {
     display: flex;
+    justify-content: space-between;
 }
+
 
 .registration-column {
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
+    flex: 1;
+    margin-right: 20px;
 }
-
 .column-items {
     margin-bottom: 10px;
+}
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="date"] {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+@media (max-width: 768px) {
+    .registration-columns {
+        flex-direction: column;
+    }
+
+    .registration-column {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
 }
 
 label {

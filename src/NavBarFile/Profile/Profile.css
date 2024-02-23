@@ -1,0 +1,41 @@
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
+}
+
+.profile-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.profile-details p {
+    margin: 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.profile-details strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-details p:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.profile-details p:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}

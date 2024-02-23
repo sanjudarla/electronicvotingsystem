@@ -1,0 +1,63 @@
+/* VoteApply.css */
+
+.container {
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.vote-apply-container {
+    width: 45%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+
+.btn-primary {
+    background-color: dodgerblue;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #007bff;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
