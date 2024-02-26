@@ -28,6 +28,9 @@ const MainNavBar = ({ user, onLogout }) => {
                             <img src={NationalSymbol} alt="NationalSymbol"></img>
                         </a>
                     </div>
+                    <div className="click-me">
+                        <button onClick={() => navigate("/main-page")}>Home</button>
+                    </div>
 
                     <div className="Nav-Bar-Title">
                         <h2>Electronic Ballot India</h2>

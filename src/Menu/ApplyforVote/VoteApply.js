@@ -11,12 +11,15 @@ const getInitialFormData = (user) => ({
     emailAddress: (user && user.emailAddress) || "",
     phoneNumber: (user && user.phoneNumber) || "",
     dateOfBirth: (user && user.dateOfBirth) || "",
+    gender:"",
+    guardiansFirstName:"",
+    guardiansLastName:"",
     constituencyId: "",
     stateId: "",
     aadharNumber: "",
     address: "",
-    voterId: null,
-    status: "pending"
+    voterId: null
+   
 });
 
 const VoteApply = ({ user, onLogout }) => {
@@ -136,10 +139,25 @@ const VoteApply = ({ user, onLogout }) => {
                                 <input type="date" className="form-control" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                {/* <label htmlFor="userId">User ID</label> */}
-                                <input type="hidden" className="form-control" id="userId" name="userId" value={formData.userId} onChange={handleChange} />
+                                <label htmlFor="gender">Gender</label>
+                                <input type="text" className="form-control" id="gender" name="gender" value={formData.gender} onChange={handleChange} />
                             </div>
                             <div className="form-group">
+                                <label htmlFor="guardiansFirstName">GuardiansFistName</label>
+                                <input type="text" className="form-control" id="guardiansFirstName" name="guardiansFirstName" value={formData.guardiansFirstName} onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="guardiansLastName">GuardiansLastName</label>
+                                <input type="text" className="form-control" id="guardiansLastName" name="guardiansLastName" value={formData.guardiansLastName} onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <input type="hidden" className="form-control" id="userId" name="userId" value={formData.userId} onChange={handleChange} />
+                            </div>
+                            
+
+                        </div>
+                        <div className="vote-apply-container">
+                        <div className="form-group">
                                 <label htmlFor="stateName">State</label>
                                 <select className="form-control" id="stateName" name="stateName" value={formData.stateName} onChange={handleChange}>
                                     <option value="">Select State</option>
@@ -161,9 +179,6 @@ const VoteApply = ({ user, onLogout }) => {
                                 )}
 
                             </div>
-
-                        </div>
-                        <div className="vote-apply-container">
 
                             <div className="form-group">
                                 <label htmlFor="aadharNumber">Aadhar Number</label>

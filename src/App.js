@@ -13,7 +13,8 @@ import Profile from './NavBarFile/Profile/Profile';
 import MainPage from './Menu/MainPage/MainPage';
 import VoteApply from './Menu/ApplyforVote/VoteApply';
 import Request from './AdminMenu/Requests/Request';
-import VoterCard from './NavBarFile/Profile/VoterCard';
+import VoterCard from './NavBarFile/VoterCard/VoterCard';
+import AddCandidate from './AdminMenu/AddCandidate/AddCandidate';
 
 
 
@@ -59,6 +60,9 @@ const App = () => {
 
           <Route path="/apply-voter-id" element={<VoteApply user={user} onLogout={handleLogout}/>} />
           <Route path="/requests" element={<Request  user={user} onLogout={handleLogout}/>} />
+
+
+          <Route path="/add-candidate" element={<AddCandidate  user={user} onLogout={handleLogout}/>} />
 
 
 

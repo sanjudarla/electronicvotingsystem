@@ -1,16 +1,24 @@
 .request-container {
     margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    
 }
 
 .request-box {
+    flex: 1 1 300px; 
+    margin-right: 20px; 
+    margin-bottom: 20px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    
 }
 
 th, td {
@@ -32,7 +40,7 @@ tr:hover {
 }
 
 .approve-button {
-    padding: 5px 1px;
+    padding: 8px 1px;
     background-color: green;
     margin-right: 5px;
     border: none;
@@ -46,7 +54,6 @@ tr:hover {
 }
 
 .reject-button {
-    padding: 5px px;
     background-color: red;
     margin-right: 5px;
     border: none;
@@ -57,4 +64,7 @@ tr:hover {
 .reject-button:hover {
     background-color: #dc3545;
     color: #fff;
+}
+.request-box td {
+    font-size: 12px; /* Adjust as needed */
 }
