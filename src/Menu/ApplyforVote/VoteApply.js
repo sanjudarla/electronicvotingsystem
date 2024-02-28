@@ -11,18 +11,19 @@ const getInitialFormData = (user) => ({
     emailAddress: (user && user.emailAddress) || "",
     phoneNumber: (user && user.phoneNumber) || "",
     dateOfBirth: (user && user.dateOfBirth) || "",
-    gender:"",
-    guardiansFirstName:"",
-    guardiansLastName:"",
+    gender: "",
+    guardiansFirstName: "",
+    guardiansLastName: "",
     constituencyId: "",
     stateId: "",
     aadharNumber: "",
     address: "",
     voterId: null
-   
+
 });
 
 const VoteApply = ({ user, onLogout }) => {
+    const isAdmin = user && user.firstName === "Admin";
     const [formData, setFormData] = useState(getInitialFormData(user));
 
     const [states, setStates] = useState([]);
@@ -33,7 +34,7 @@ const VoteApply = ({ user, onLogout }) => {
         fetchStates();
     }, [user]);
 
-    
+
 
 
 
@@ -70,14 +71,14 @@ const VoteApply = ({ user, onLogout }) => {
             console.log("Selected State ID:", value);
             setFormData(prevState => ({
                 ...prevState,
-                stateId: value 
+                stateId: value
             }));
             fetchConstituencies(value);
         } else if (name === 'constituencyName') {
             console.log("Selected Constituency ID:", value);
             setFormData(prevState => ({
                 ...prevState,
-                constituencyId: value 
+                constituencyId: value
             }));
         }
     };
@@ -98,12 +99,12 @@ const VoteApply = ({ user, onLogout }) => {
             console.log("Data saved successfully:", data);
             if (response.status === 200) {
                 toast.success("Your Data Has Been Sent for validation please wait for approval");
-                setFormData(getInitialFormData(user)); 
-                
+                setFormData(getInitialFormData(user));
+
                 setFormData(prevState => ({
                     ...prevState,
-                    stateName: "", 
-                    constituencyName: "" 
+                    stateName: "",
+                    constituencyName: ""
                 }));
             } else {
                 toast.error("User Already Registered ");
@@ -118,91 +119,98 @@ const VoteApply = ({ user, onLogout }) => {
 
 
 
+
     return (
         <>
             <MainNavBar user={(user)} onLogout={(onLogout)} />
-            <div className="container">
-                <h1>Apply For Voter Id</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="container-box">
-                        <div className="vote-apply-container">
-                            <div className="form-group">
-                                <label htmlFor="firstname">First Name</label>
-                                <input type="text" className="form-control" id="firstname" name="firstname" value={formData.firstname} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="lastname">Last Name</label>
-                                <input type="text" className="form-control" id="lastname" name="lastname" value={formData.lastname} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="dateOfBirth">Date of Birth</label>
-                                <input type="date" className="form-control" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="gender">Gender</label>
-                                <input type="text" className="form-control" id="gender" name="gender" value={formData.gender} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="guardiansFirstName">GuardiansFistName</label>
-                                <input type="text" className="form-control" id="guardiansFirstName" name="guardiansFirstName" value={formData.guardiansFirstName} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="guardiansLastName">GuardiansLastName</label>
-                                <input type="text" className="form-control" id="guardiansLastName" name="guardiansLastName" value={formData.guardiansLastName} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <input type="hidden" className="form-control" id="userId" name="userId" value={formData.userId} onChange={handleChange} />
-                            </div>
-                            
+            {isAdmin ? (
+                <div>Admin cannot apply for voter ID.</div>
+            ) : (
 
-                        </div>
-                        <div className="vote-apply-container">
-                        <div className="form-group">
-                                <label htmlFor="stateName">State</label>
-                                <select className="form-control" id="stateName" name="stateName" value={formData.stateName} onChange={handleChange}>
-                                    <option value="">Select State</option>
-                                    {states.map(state => (
-                                        <option key={state.stateId} value={state.stateId}>{state.stateName}</option>
-                                    ))}
-                                </select>
+                <div className="container">
+                    <h1>Apply For Voter Id</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="container-box">
+                            <div className="vote-apply-container">
+                                <div className="form-group">
+                                    <label htmlFor="firstname">First Name</label>
+                                    <input type="text" className="form-control" id="firstname" name="firstname" value={formData.firstname} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="lastname">Last Name</label>
+                                    <input type="text" className="form-control" id="lastname" name="lastname" value={formData.lastname} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="dateOfBirth">Date of Birth</label>
+                                    <input type="date" className="form-control" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="gender">Gender</label>
+                                    <input type="text" className="form-control" id="gender" name="gender" value={formData.gender} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="guardiansFirstName">GuardiansFistName</label>
+                                    <input type="text" className="form-control" id="guardiansFirstName" name="guardiansFirstName" value={formData.guardiansFirstName} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="guardiansLastName">GuardiansLastName</label>
+                                    <input type="text" className="form-control" id="guardiansLastName" name="guardiansLastName" value={formData.guardiansLastName} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <input type="hidden" className="form-control" id="userId" name="userId" value={formData.userId} onChange={handleChange} />
+                                </div>
+
+
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="constituencyName">Constituency</label>
-                                {constituencies && constituencies.length > 0 && (
-                                    <select className="form-control" id="constituencyName" name="constituencyName" value={formData.constituencyName} onChange={handleChange}>
-                                        <option value="">Select Constituency</option>
-                                        {constituencies.map(constituency => (
-                                            <option key={constituency.constituencyId} value={constituency.constituencyId}>{constituency.constituencyName}</option>
+                            <div className="vote-apply-container">
+                                <div className="form-group">
+                                    <label htmlFor="stateName">State</label>
+                                    <select className="form-control" id="stateName" name="stateName" value={formData.stateName} onChange={handleChange}>
+                                        <option value="">Select State</option>
+                                        {states.map(state => (
+                                            <option key={state.stateId} value={state.stateId}>{state.stateName}</option>
                                         ))}
                                     </select>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="constituencyName">Constituency</label>
+                                    {constituencies && constituencies.length > 0 && (
+                                        <select className="form-control" id="constituencyName" name="constituencyName" value={formData.constituencyName} onChange={handleChange}>
+                                            <option value="">Select Constituency</option>
+                                            {constituencies.map(constituency => (
+                                                <option key={constituency.constituencyId} value={constituency.constituencyId}>{constituency.constituencyName}</option>
+                                            ))}
+                                        </select>
 
-                                )}
+                                    )}
 
-                            </div>
+                                </div>
 
-                            <div className="form-group">
-                                <label htmlFor="aadharNumber">Aadhar Number</label>
-                                <input type="text" className="form-control" id="aadharNumber" name="aadharNumber" value={formData.aadharNumber} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="address">Address</label>
-                                <input type="text" className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="phoneNumber">Phone Number</label>
-                                <input type="text" className="form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="emailAddress">Email</label>
-                                <input type="email" className="form-control" id="emailAddress" name="emailAddress" value={formData.emailAddress} onChange={handleChange} />
-                            </div>
+                                <div className="form-group">
+                                    <label htmlFor="aadharNumber">Aadhar Number</label>
+                                    <input type="text" className="form-control" id="aadharNumber" name="aadharNumber" value={formData.aadharNumber} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="address">Address</label>
+                                    <input type="text" className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="phoneNumber">Phone Number</label>
+                                    <input type="text" className="form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="emailAddress">Email</label>
+                                    <input type="email" className="form-control" id="emailAddress" name="emailAddress" value={formData.emailAddress} onChange={handleChange} />
+                                </div>
 
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="submit" className="btn btn-primary">Submit</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            )}
             <ToastContainer />
+
         </>
     );
 };

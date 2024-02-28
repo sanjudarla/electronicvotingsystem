@@ -12,17 +12,22 @@ import MainNavBar from './NavBarFile/NavBar/MainNavBar';
 import Profile from './NavBarFile/Profile/Profile';
 import MainPage from './Menu/MainPage/MainPage';
 import VoteApply from './Menu/ApplyforVote/VoteApply';
-import Request from './AdminMenu/Requests/Request';
 import VoterCard from './NavBarFile/VoterCard/VoterCard';
+//Admin
+import Request from './AdminMenu/Requests/Request';
+import Details from './Menu/Details/Details';
 import AddCandidate from './AdminMenu/AddCandidate/AddCandidate';
+import AddParty from './AdminMenu/AddParty/AppParty';
 
+//Blog
+import Blog1 from './StartingContent/Bolgs/Blog1';
 
 
 
 const App = () => {
   const [user, setUser] = useState(null);
 
-  // Load user data from local storage on component mount
+  
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -32,12 +37,12 @@ const App = () => {
 
   const handleLogin = (userData) => {
     setUser(userData);
-    // Save user data to local storage
+    
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
-    // Clear user data from state and local storage
+   
     setUser(null);
     localStorage.removeItem('user');
     window.location.href = '/';
@@ -60,14 +65,16 @@ const App = () => {
 
           <Route path="/apply-voter-id" element={<VoteApply user={user} onLogout={handleLogout}/>} />
           <Route path="/requests" element={<Request  user={user} onLogout={handleLogout}/>} />
+          <Route path="/details-page" element={<Details  user={user} onLogout={handleLogout}/>} />
 
 
           <Route path="/add-candidate" element={<AddCandidate  user={user} onLogout={handleLogout}/>} />
+          <Route path="/add-party" element={<AddParty  user={user} onLogout={handleLogout}/>} />
+          <Route path="/blog1" element={<Blog1  user={user} onLogout={handleLogout}/>} />
 
-
-
-
-
+          
+          
+          
 
         </Routes>
       </BrowserRouter>

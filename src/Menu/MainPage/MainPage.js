@@ -21,8 +21,8 @@ const MainPage = ({ user, onLogout }) => {
         navigate("/vote")
     }
 
-    const UpdatesHandleClick = () => {
-        navigate("/main-page")
+    const DetailsHandleClick = () => {
+        navigate("/details-page")
     }
     const AddCandidateHandleClick = () => {
         navigate("/add-candidate")
@@ -43,8 +43,8 @@ const MainPage = ({ user, onLogout }) => {
             <div className="menu-items-container">
                 <div className="menu-row">
                     <div className="menu-item">
-                        <a href="/main-page"><img src={Home} alt="Updates" /></a>
-                        <button onClick={UpdatesHandleClick}>Updates</button>
+                        <a href="/main-page"><img src={Home} alt="Details" /></a>
+                        <button onClick={DetailsHandleClick}>Details</button>
                     </div>
                     <div className="menu-item">
                         <a href="/main-page"><img src={Vote} alt="Voting" /></a>

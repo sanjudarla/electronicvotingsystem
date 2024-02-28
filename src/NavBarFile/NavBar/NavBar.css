@@ -28,9 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     max-width: 100%;
-    background-image: linear-gradient(to right, #eec78c, #c8c1c1, #138808);
-    height: 70px;
-
+    background-color:rgb(147, 163, 180)
 
 }
 

@@ -7,6 +7,10 @@ const MainContent = () => {
         <>
             <NavBar />
             <div className="main-content-container">
+                <div className="main-content-image-container">
+                
+
+                </div>
                 <div className="main-content">
                     <div className="blog-block">
                         <h2>Electronic Voting System: A Comprehensive Guide</h2>

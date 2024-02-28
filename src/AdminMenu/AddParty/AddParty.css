@@ -1,40 +1,36 @@
-.add-candidate-container {
+.add-party-container {
     display: flex;
     justify-content: left;
     flex-direction: column;
     max-width: 100%;
 }
-.candidate-container-box {
+.party-container-box {
     display: flex;
     justify-content: center;
     width: 100%;
 }
-
-.blank-container {
+.party-blank-container {
     display: flex;
     justify-content: center;
     height: 33pc;
     width: 40%;
 }
-.blank-container img{
+.party-blank-container img{
     margin-top: 8pc;
     width: 50%;
     height: 50%;
 }
-.form-box{
-    width: 60%;
-    
+.party-form-box{
+    width: 60%;  
 }
-.candidate-form-container {
+.party-form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #f6f6f6;
     
-    
 }
-
-.candidate-title-container {
+.party-title-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,12 +38,10 @@
     background-color: rgb(118, 121, 145);
     border-radius: 5px;
 }
-
-.candidate-title-container h3 {
+.party-title-container h3 {
     font-family: sans-serif;
 }
-
-.candidate-data-container {
+.party-data-container {
     display: grid;
     justify-content: left;
     align-items: center;
@@ -56,8 +50,9 @@
     margin-left: 20px;
     padding-bottom: 2pc;
     border-bottom: 1px solid rgb(229, 229, 237);
+    
 }
-.paragraph-box{
+.party-paragraph-box{
     height: 30%;
     width: 100%;
     display: flex;
@@ -65,45 +60,41 @@
     align-items: center;
     
 }
-
-.add-container-input-field {  
+.add-party-container-input-field {  
     
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 70%;
 }
-
-
-.add-container-input-field {
-    height: 70%; /* Set height of input fields to 70% */
-}
-
-
-.add-candidate-input-container{
+.party-input-container{
     width: 50%;
 }
-.add-candidate-lable-container {
+.party-lable-container {
     width: 70%;
 }
-.candidate-buttons{
+.party-buttons{
     display: flex;
     justify-content: center;
     
    
 }
-.candidate-buttons button{
+.party-buttons button{
     background-color: green;
     padding: 10px;
     border-radius: 5px;
     color: white;
     border: white;
 }
-.required-symbol-for-candidate {
-    color: red;
-    margin-left: 5px;
-  }
-.validations{
+  
+.add-party-validations{
     color: rgb(39, 214, 39);
     font-size: x-small;
 }
+
+.required-symbol-for-party {
+    color: red;
+    margin-left: 5px; /* Adjust as needed for proper spacing */
+  }
+  
