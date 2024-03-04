@@ -85,7 +85,7 @@ const VoterCard = ({ user, onLogout }) => {
             <div className="voter-card-container" ref={cardRef}>
                 <h1>Voter Card</h1>
                 <div className="voter-card">
-                    {userData && userData.length > 0 ? (
+                    {userData && userData.length > 0 && userData[0].voterId !== null? (
                         <>
                             <div className="header-container">
                                 <div className="icon-picture">
@@ -137,8 +137,9 @@ const VoterCard = ({ user, onLogout }) => {
                         <div className="no-data-message">No voter data available</div>
                     )}
                 </div>
-                
-                <button className="download-button" onClick={handleDownload}>Download PDF</button>
+                {userData && userData.length > 0 && userData[0].voterId !== null && (
+                    <button className="download-button" onClick={handleDownload}>Download PDF</button>
+                )}
             </div>
         </>
     );

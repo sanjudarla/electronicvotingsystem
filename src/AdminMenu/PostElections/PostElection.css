@@ -1,0 +1,63 @@
+.election-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.post-election-container {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(227, 203, 203, 0.1);
+  width: 400px;
+}
+
+.post-election-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post-election-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.election-name-input,
+.state-select,
+.description-textarea,
+.start-date-input,
+.end-date-input,
+.submit-button {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.toastify {
+  font-family: Arial, sans-serif;
+}
+
+.toastify-content {
+  padding: 10px 20px;
+}
+
+.toastify.toastify-success {
+  background-color: #28a745;
+}
+
+.toastify.toastify-error {
+  background-color: #dc3545;
+}

@@ -30,13 +30,14 @@ const Profile = ({ user, onLogout }) => {
             console.error("Error fetching voter details:", error);
         }
     };
+    
 
     return (
         <>
             <MainNavBar user={user} onLogout={onLogout} />
             <div className="container profile-container">
                 <h2 className="mt-3">Profile Details</h2>
-                {voterDetails ? (
+                {voterDetails && voterDetails[0].voterId !== null ? (
                     <div className="profile-details mt-4">
                         <p><strong>First Name:</strong> {voterDetails[0].firstName}</p>
                         <p><strong>Last Name:</strong> {voterDetails[0].lastName}</p>
@@ -50,7 +51,7 @@ const Profile = ({ user, onLogout }) => {
                         <p><strong>Address:</strong> {voterDetails[0].address}</p>
                     </div>
                 ) : (
-                    <p>Loading voter details...</p>
+                    <p>Please wait until the voter id is generated to see your profile..</p>
                 )}
             </div>
         </>

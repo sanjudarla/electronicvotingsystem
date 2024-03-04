@@ -1,0 +1,70 @@
+.cast-vote-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  background: #fff;
+}
+
+.cast-vote-title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #333;
+}
+
+.candidates-table {
+  width: 100%;
+  margin-top: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.candidates-table thead {
+  background: linear-gradient(to right, #4caf50, #8bc34a); 
+}
+
+.candidates-table thead th {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #5f6260;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  text-align: left;
+}
+
+.candidates-table tbody td {
+  padding: 15px;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.candidates-table tbody tr:nth-child(even) td {
+  background: #f0f0f0;
+}
+
+.vote-cell button {
+  padding: 8px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.vote-cell button:hover {
+  background: #388e3c;
+}
+
+.vote-cell button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

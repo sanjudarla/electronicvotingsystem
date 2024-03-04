@@ -129,53 +129,53 @@ const VoteApply = ({ user, onLogout }) => {
 
                 <div className="container">
                     <h1>Apply For Voter Id</h1>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="apply-vote-form">
                         <div className="container-box">
                             <div className="vote-apply-container">
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="firstname">First Name</label>
-                                    <input type="text" className="form-control" id="firstname" name="firstname" value={formData.firstname} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="firstname" name="firstname" value={formData.firstname} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="lastname">Last Name</label>
-                                    <input type="text" className="form-control" id="lastname" name="lastname" value={formData.lastname} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="lastname" name="lastname" value={formData.lastname} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="dateOfBirth">Date of Birth</label>
-                                    <input type="date" className="form-control" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
+                                    <input type="date" className="apply-vote-form-control" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="gender">Gender</label>
-                                    <input type="text" className="form-control" id="gender" name="gender" value={formData.gender} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="gender" name="gender" value={formData.gender} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="guardiansFirstName">GuardiansFistName</label>
-                                    <input type="text" className="form-control" id="guardiansFirstName" name="guardiansFirstName" value={formData.guardiansFirstName} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="guardiansFirstName" name="guardiansFirstName" value={formData.guardiansFirstName} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="guardiansLastName">GuardiansLastName</label>
-                                    <input type="text" className="form-control" id="guardiansLastName" name="guardiansLastName" value={formData.guardiansLastName} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="guardiansLastName" name="guardiansLastName" value={formData.guardiansLastName} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
-                                    <input type="hidden" className="form-control" id="userId" name="userId" value={formData.userId} onChange={handleChange} />
+                                <div className="apply-vote-form-group">
+                                    <input type="hidden" className="apply-vote-form-control" id="userId" name="userId" value={formData.userId} onChange={handleChange}  required/>
                                 </div>
 
 
                             </div>
                             <div className="vote-apply-container">
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="stateName">State</label>
-                                    <select className="form-control" id="stateName" name="stateName" value={formData.stateName} onChange={handleChange}>
+                                    <select className="apply-vote-form-control" id="stateName" name="stateName" value={formData.stateName} onChange={handleChange} required>
                                         <option value="">Select State</option>
                                         {states.map(state => (
                                             <option key={state.stateId} value={state.stateId}>{state.stateName}</option>
                                         ))}
                                     </select>
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="constituencyName">Constituency</label>
                                     {constituencies && constituencies.length > 0 && (
-                                        <select className="form-control" id="constituencyName" name="constituencyName" value={formData.constituencyName} onChange={handleChange}>
+                                        <select className="apply-vote-form-control" id="constituencyName" name="constituencyName" value={formData.constituencyName} onChange={handleChange} required>
                                             <option value="">Select Constituency</option>
                                             {constituencies.map(constituency => (
                                                 <option key={constituency.constituencyId} value={constituency.constituencyId}>{constituency.constituencyName}</option>
@@ -186,21 +186,21 @@ const VoteApply = ({ user, onLogout }) => {
 
                                 </div>
 
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="aadharNumber">Aadhar Number</label>
-                                    <input type="text" className="form-control" id="aadharNumber" name="aadharNumber" value={formData.aadharNumber} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="aadharNumber" name="aadharNumber" value={formData.aadharNumber} onChange={handleChange} required />
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="address">Address</label>
-                                    <input type="text" className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="address" name="address" value={formData.address} onChange={handleChange} required/>
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="phoneNumber">Phone Number</label>
-                                    <input type="text" className="form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+                                    <input type="text" className="apply-vote-form-control" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required/>
                                 </div>
-                                <div className="form-group">
+                                <div className="apply-vote-form-group">
                                     <label htmlFor="emailAddress">Email</label>
-                                    <input type="email" className="form-control" id="emailAddress" name="emailAddress" value={formData.emailAddress} onChange={handleChange} />
+                                    <input type="email" className="apply-vote-form-control" id="emailAddress" name="emailAddress" value={formData.emailAddress} onChange={handleChange} required/>
                                 </div>
 
                                 <button type="submit" className="btn btn-primary">Submit</button>

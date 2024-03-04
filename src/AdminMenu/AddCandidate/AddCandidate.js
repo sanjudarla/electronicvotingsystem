@@ -32,7 +32,7 @@ const AddCandidate = ({ user, onLogout }) => {
     const [isMobileNumberValid, setIsMobileNumberValid] = useState(true);
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isDateofBirthValid, setIsDateofBirthValid] = useState(true);
-    
+
 
     useEffect(() => {
         setCandidateData(getInitialFormData());
@@ -117,17 +117,17 @@ const AddCandidate = ({ user, onLogout }) => {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             setIsEmailValid(emailRegex.test(value));
         }
-    
+
         // Validate phone number
         if (name === 'mobileNumber') {
             // Implement your phone number validation logic here, for example:
             const phoneRegex = /^\d{10}$/;
             setIsMobileNumberValid(phoneRegex.test(value));
         }
-    
+
 
         if (name === 'dateOfBirth') {
-            
+
             const dob = new Date(value);
             const currentDate = new Date();
             const age = currentDate.getFullYear() - dob.getFullYear();
@@ -218,7 +218,18 @@ const AddCandidate = ({ user, onLogout }) => {
                                     </div>
                                     <div className="add-container-input-field">
                                         <label className="add-candidate-lable-container" htmlFor="gender">Gender :</label>
-                                        <input className="add-candidate-input-container" type="text" name="gender" id="gender" value={candidateData.gender} onChange={handleChange} placeholder="Gender" required / >
+                                        <select
+                                            className="form-control"
+                                            name="gender"
+                                            id="gender"
+                                            value={candidateData.gender}
+                                            onChange={handleChange}
+                                            required
+                                        >
+                                            <option value=''>Select Gender</option>
+                                            <option value='Male'>Male</option>
+                                            <option value='Female'>Female</option>
+                                        </select>
                                     </div>
                                     <div className="validations">
                                         {!isValid && <p>Candidate gender must not be empty</p>}
@@ -247,7 +258,7 @@ const AddCandidate = ({ user, onLogout }) => {
                                                 <option key={party.partyId} value={party.partyId}>{party.partyName}</option>
                                             ))}
                                         </select>                                    </div>
-                                    
+
                                 </div>
                                 <div className="candidate-data-container">
                                     <div className="paragraph-box">
@@ -262,7 +273,7 @@ const AddCandidate = ({ user, onLogout }) => {
                                             ))}
                                         </select>
                                     </div>
-                                   
+
                                 </div>
                                 <div className="candidate-data-container">
                                     <div className="paragraph-box">
@@ -280,7 +291,7 @@ const AddCandidate = ({ user, onLogout }) => {
 
                                         )}
                                     </div>
-                                    
+
                                 </div>
                                 <div className="candidate-buttons">
                                     <button type="button" onClick={handlePrevStep}>Previous</button>
@@ -327,7 +338,7 @@ const AddCandidate = ({ user, onLogout }) => {
                                         <label className="add-candidate-lable-container" htmlFor="Address">Address :</label>
                                         <input className="add-candidate-input-container" type="text" name="address" id="address" value={candidateData.address} onChange={handleChange} placeholder="Address" required />
                                     </div>
-                                    
+
                                 </div>
                                 <div className="candidate-buttons">
                                     <button type="button" onClick={handlePrevStep}>Previous</button>

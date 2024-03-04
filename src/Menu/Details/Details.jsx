@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import MainNavBar from "../../NavBarFile/NavBar/MainNavBar";
 import "./Details.css";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Details = ({ user, onLogout }) => {
     const [candidates, setCandidates] = useState([]);
     const [parties, setParties] = useState([]);
     const [states, setStates] = useState([]);
     const [constituencies, setConstituencies] = useState([]);
+    const [voter, setVoter] = useState([]);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [activeTab, setActiveTab] = useState("candidates");
@@ -19,17 +21,20 @@ const Details = ({ user, onLogout }) => {
             const partyResponse = await fetch("http://localhost:5191/api/PartyApi");
             const stateResponse = await fetch("http://localhost:5191/api/StateApi");
             const constituencyResponse = await fetch("http://localhost:5191/api/ConstituencyApi");
+            const voterResponse = await fetch("http://localhost:5191/api/VoterApi");
 
 
             const candidateData = await candidateResponse.json();
             const partyData = await partyResponse.json();
             const stateData = await stateResponse.json();
             const constituencyData = await constituencyResponse.json();
+            const voterData = await voterResponse.json();
 
             setCandidates(candidateData);
             setParties(partyData);
             setStates(stateData);
             setConstituencies(constituencyData);
+            setVoter(voterData);
         };
 
         fetchData();
@@ -60,12 +65,25 @@ const Details = ({ user, onLogout }) => {
         candidate.candidateName &&
         candidate.candidateName.replace(/\s/g, '').toLowerCase().includes(searchTerm.replace(/\s/g, '').toLowerCase())
     );
-    
+
 
     const fetchConstituenciesbasedonStateId = async (stateId) => {
-        const response = await fetch(`http://localhost:5191/api/ConstituencyApi/${stateId}`);
-        const data = await response.json();
-        setStateConstituencies(data);
+        try {
+            const response = await fetch(`http://localhost:5191/api/ConstituencyApi/${stateId}`);
+            if (response.ok) {
+                const data = await response.json();
+                setStateConstituencies(data);
+                if (data.length === 0) {
+                    toast.info("No data available");
+                }
+            } else {
+                setStateConstituencies('');
+
+
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     const handleStateSelect = e => {
@@ -113,6 +131,12 @@ const Details = ({ user, onLogout }) => {
                         onClick={() => setActiveTab("constituencies")}
                     >
                         Constituencies
+                    </div>
+                    <div
+                        className={`details__tab ${activeTab === "voter" ? "details__tab--active" : ""}`}
+                        onClick={() => setActiveTab("voter")}
+                    >
+                        Voters list
                     </div>
                 </div>
                 {activeTab === "candidates" && (
@@ -180,26 +204,83 @@ const Details = ({ user, onLogout }) => {
                 {activeTab === "constituencies" && (
                     <div className="details__section">
                         <h2 className="details__section-title">Constituencies</h2>
-
-                        <select onChange={handleStateSelect}>
+                        <select onChange={handleStateSelect} className="details-form-control">
                             <option value="">Select State</option>
                             {states.map(state => (
                                 <option key={state.stateId} value={state.stateId}>{state.stateName}</option>
                             ))}
                         </select>
-                        {selectedState &&
-                            <div className="constituencies-grid">
-                                {stateConstituencies.map((c, index) => (
-                                    <div className="constituency-item" key={c.constituencyId}>
-                                        {c.constituencyName}
-                                    </div>
-                                ))}
-                            </div>
-                        }
+                        {selectedState && (
+                            <div><h3>Constituencies in {statesLookup[selectedState].stateName}</h3>
+                                <div className="constituencies-grid">
 
+                                    {stateConstituencies.length === 0 ? (
+                                        <p>No data available for {statesLookup[selectedState].stateName}</p>
+                                    ) : (
+                                        stateConstituencies.map((c, index) => (
+                                            <div className="constituency-item" key={c.constituencyId}>
+                                                {c.constituencyName}
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
+
+                {activeTab === "voter" && (
+                    <div>
+                        <div className="details__section">
+                            <h2 className="details__section-title">Voter List</h2>
+                            <select onChange={handleStateSelect} className="details-form-control">
+
+                                <option value="">Select State</option>
+                                {states.map(state => (
+                                    <option key={state.stateId} value={state.stateId}>{state.stateName}</option>
+                                ))}
+                            </select>
+                        </div>
+                        {selectedState && (
+                            <div>
+                                <h3>Constituencies in {statesLookup[selectedState].stateName}</h3>
+                                {stateConstituencies.length === 0 ? (
+                                    <p>No data available for {statesLookup[selectedState].stateName} </p>
+                                ) : (
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Constituency Name</th>
+                                                <th>Voter Count</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {stateConstituencies
+                                                .filter(constituency => {
+                                                    const voteCount = voter.filter(vote => vote.constituencyId === constituency.constituencyId).length;
+                                                    return voteCount > 0;
+                                                })
+                                                .map((constituency, index) => {
+                                                    const voteCount = voter.filter(vote => vote.constituencyId === constituency.constituencyId).length;
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{constituency.constituencyName}</td>
+                                                            <td>{voteCount}</td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                        </tbody>
+                                    </table>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
+
+
+
             </div>
+            <ToastContainer />
         </>
     );
 };

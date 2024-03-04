@@ -13,14 +13,16 @@ const Request = ({ user, onLogout }) => {
         try {
             const response = await fetch("http://localhost:5191/api/VoterApi/NullVoterId");
             const requestData = await response.json();
+           
 
 
             const requestsWithData = await Promise.all(requestData.map(async (request) => {
                 const stateResponse = await fetch(`http://localhost:5191/api/StateApi/${request.stateId}`);
                 const stateData = await stateResponse.json();
-
-                const constituencyResponse = await fetch(`http://localhost:5191/api/ConstituencyApi/constitunecybyid/${request.constituencyId}`);
+                
+                const constituencyResponse = await fetch(`http://localhost:5191/api/ConstituencyApi/constituency/${request.constituencyId}`);
                 const constituencyData = await constituencyResponse.json();
+                
 
                 return {
                     ...request,
@@ -30,6 +32,7 @@ const Request = ({ user, onLogout }) => {
             }));
 
             setRequests(requestsWithData);
+           
         } catch (error) {
             console.error("Error fetching requests:", error);
         }
@@ -138,6 +141,7 @@ const Request = ({ user, onLogout }) => {
                         </thead>
                         <tbody>
                             {requests.map((request, index) => (
+                                
                                 <tr key={index}>
                                     <td>{request.firstName}</td>
                                     <td>{request.lastName}</td>

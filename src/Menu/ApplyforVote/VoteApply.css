@@ -1,4 +1,4 @@
-/* VoteApply.css */
+
 
 .container {
     margin: 20px auto;
@@ -7,6 +7,13 @@
 
 h1 {
     text-align: center;
+}
+
+
+.apply-vote-form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .container-box {
@@ -19,7 +26,7 @@ h1 {
     width: 45%;
 }
 
-.form-group {
+.apply-vote-form-group {
     margin-bottom: 20px;
 }
 
@@ -27,7 +34,7 @@ label {
     font-weight: bold;
 }
 
-.form-control {
+.apply-vote-form-control {
     width: 100%;
     padding: 8px;
     font-size: 16px;

@@ -21,6 +21,9 @@ import AddParty from './AdminMenu/AddParty/AppParty';
 
 //Blog
 import Blog1 from './StartingContent/Bolgs/Blog1';
+import Vote from './Menu/Vote/Vote';
+import PostElection from './AdminMenu/PostElections/PostElection';
+import DataModification from './AdminMenu/DataModification/DataModification';
 
 
 
@@ -71,6 +74,9 @@ const App = () => {
           <Route path="/add-candidate" element={<AddCandidate  user={user} onLogout={handleLogout}/>} />
           <Route path="/add-party" element={<AddParty  user={user} onLogout={handleLogout}/>} />
           <Route path="/blog1" element={<Blog1  user={user} onLogout={handleLogout}/>} />
+          <Route path="/cast-vote" element={<Vote  user={user} onLogout={handleLogout}/>} />
+          <Route path="/post-election" element={<PostElection  user={user} onLogout={handleLogout}/>} />
+          <Route path="/data-modification" element={<DataModification  user={user} onLogout={handleLogout}/>} />
 
           
           

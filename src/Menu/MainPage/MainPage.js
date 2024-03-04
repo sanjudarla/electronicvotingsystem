@@ -5,7 +5,8 @@ import AddParty from '../../Images/AddParty.png';
 import AddCandidate from '../../Images/AddCandidate.png';
 import ApproveReject from '../../Images/ApproveReject.png';
 import VoterId from '../../Images/VoterId.png';
-import Results from '../../Images/Results.jpg'
+import Election from '../../Images/Election.png';
+import UpdateData from '../../Images/UpdateData.png';
 import { useNavigate } from "react-router-dom";
 import './MainPage.css';
 import MainNavBar from "../../NavBarFile/NavBar/MainNavBar";
@@ -14,26 +15,36 @@ const MainPage = ({ user, onLogout }) => {
     const navigate = useNavigate();
 
     const ApplyVoterHandleClick = () => {
-        navigate("/apply-voter-id")
+        navigate("/apply-voter-id");
     }
 
     const VoterHandleClick = () => {
-        navigate("/vote")
+        navigate("/cast-vote");
     }
 
     const DetailsHandleClick = () => {
-        navigate("/details-page")
-    }
-    const AddCandidateHandleClick = () => {
-        navigate("/add-candidate")
-    }
-    const AddPartyHandleClick = () => {
-        navigate("/add-party")
-    }
-    const ApproveRejectHandleClick = () => {
-        navigate('/requests')
+        navigate("/details-page");
     }
 
+    const AddCandidateHandleClick = () => {
+        navigate("/add-candidate");
+    }
+
+    const AddPartyHandleClick = () => {
+        navigate("/add-party");
+    }
+
+    const ApproveRejectHandleClick = () => {
+        navigate('/requests');
+    }
+
+    const PostElectionHandleClick = () => {
+        navigate('/post-election');
+    }
+
+    const DataModificationHandleClick = () => {
+        navigate('/data-modification');
+    }
 
     const isAdminUser = user && user.emailAddress === "Admin@gmail.com" && user.password === "Admin@123";
 
@@ -46,36 +57,51 @@ const MainPage = ({ user, onLogout }) => {
                         <a href="/main-page"><img src={Home} alt="Details" /></a>
                         <button onClick={DetailsHandleClick}>Details</button>
                     </div>
-                    <div className="menu-item">
-                        <a href="/main-page"><img src={Vote} alt="Voting" /></a>
-                        <button onClick={VoterHandleClick}>Vote</button>
-                    </div>
-                    <div className="menu-item">
-                        <a href="/main-page"><img src={VoterId} alt="Apply For Voter Id" /></a>
-                        <button onClick={ApplyVoterHandleClick}>Apply for Voter Id</button>
-                    </div>
-
-                </div>
-                <div className="menu-row">
+                    {!isAdminUser &&
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={Vote} alt="Voting" /></a>
+                            <button onClick={VoterHandleClick}>Vote</button>
+                        </div>
+                    }
+                    {!isAdminUser &&
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={VoterId} alt="Apply For Voter Id" /></a>
+                            <button onClick={ApplyVoterHandleClick}>Apply for Voter Id</button>
+                        </div>
+                    }
                     {isAdminUser &&
-                        <>
-                            <div className="menu-item">
-                                <a href="/main-page"><img src={AddParty} alt="Add Party" /></a>
-                                <button onClick={AddPartyHandleClick}>Add Party</button>
-                            </div>
-                            <div className="menu-item">
-                                <a href="/main-page"><img src={AddCandidate} alt="Add Candidate" /></a>
-                                <button onClick={AddCandidateHandleClick}>Add Candidate</button>
-                            </div>
-                            <div className="menu-item">
-                                <a href="/main-page"><img src={ApproveReject} alt="Approve/Reject Requests" /></a>
-                                <button onClick={ApproveRejectHandleClick}>Approve/Reject Requests</button>
-                            </div>
-                        </>
+                    <div className="menu-item">
+                        <a href="/main-page"><img src={AddParty} alt="Add Party" /></a>
+                        <button onClick={AddPartyHandleClick}>Add Party</button>
+                    </div>
+                    }
+                    {isAdminUser &&
+                    <div className="menu-item">
+                        <a href="/main-page"><img src={AddCandidate} alt="Add Candidate" /></a>
+                        <button onClick={AddCandidateHandleClick}>Add Candidate</button>
+                    </div>
                     }
                 </div>
+                {isAdminUser &&
+                    <div className="menu-row">
+
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={ApproveReject} alt="Approve/Reject Requests" /></a>
+                            <button onClick={ApproveRejectHandleClick}>Approve/Reject Requests</button>
+                        </div>
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={Election} alt="Post Elections" /></a>
+                            <button onClick={PostElectionHandleClick}>Post Elections</button>
+                        </div>
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={UpdateData} alt="Data Modification" /></a>
+                            <button onClick={DataModificationHandleClick}>Data Modification</button>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     )
 }
+
 export default MainPage;
