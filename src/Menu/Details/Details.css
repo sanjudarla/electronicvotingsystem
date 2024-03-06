@@ -144,3 +144,13 @@
   transition: border-color 0.3s ease;
   margin-bottom: 5px;
 }
+.details__candidates-table table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.details__candidates-table th, td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  font-size: small;
+}

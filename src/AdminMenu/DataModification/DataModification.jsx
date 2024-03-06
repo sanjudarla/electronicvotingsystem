@@ -1,46 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainNavBar from "../../NavBarFile/NavBar/MainNavBar";
 import './DataModification.css'
+import { ToastContainer, toast } from "react-toastify";
+import CandidatesDataModification from "./CandidatesDataModification";
+
+import StateDataModification from "./StateDataModification";
+import VoterDataModification from "./VoterDataModification";
+import ConstituenciesDataModification from "./ConstituenciesDataModification";
 
 const DataModification = ({ user, onLogout }) => {
     const [activeTab, setActiveTab] = useState("states");
-    const [showDropdown, setShowDropdown] = useState(false);
-
-     const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-    };
-    const HandleAddState = () => {
-
-    }
-    const HandleUpdateState = () => {
-        
-    }
-    const HandleDeleteState = () => {
-        
-    }
-    const HandleUpdateConstituency = () => {
-        
-    }
-    const HandleDeleteConstituency = () => {
-        
-    }
-    const HandleUpdateCandidates = () => {
-        
-    }
-    const HandleDeleteCandidates = () => {
-        
-    }
-    const HandleUpdateVoters = () => {
-        
-    }
-    const HandleDeleteVoters = () => {
-        
-    }
-
-
-
-
-
 
     return (
         <>
@@ -53,19 +22,7 @@ const DataModification = ({ user, onLogout }) => {
                             onClick={() => setActiveTab("states")}
                         >
                             State Data
-                            {activeTab === "states" && (
-                                <div className="modification-data-options">
-                                <button  onClick={toggleDropdown}></button>
-                                    {showDropdown && (
-                                        <div className="dropdown-content">
-                                            <button onClick={HandleAddState}>Add State</button>
-                                            <button onClick={HandleUpdateState}>Update State</button>
-                                            <button onClick={HandleDeleteState}>Delete State</button>
 
-                                        </div>
-                                    )}
-                                </div>
-                            )}
                         </div>
                         <div
                             className={`data-modification-details-tab ${activeTab === "constituencies" ? "data-modification-details-tab--active" : ""
@@ -73,19 +30,7 @@ const DataModification = ({ user, onLogout }) => {
                             onClick={() => setActiveTab("constituencies")}
                         >
                             Constituency Data
-                            {activeTab === "constituencies" && (
-                                <div className="modification-data-options">
-                                <button  onClick={toggleDropdown}></button>
-                                    {showDropdown && (
-                                        <div className="dropdown-content">
-                                            
-                                            <button onClick={HandleUpdateConstituency}>Update Constituencies</button>
-                                            <button onClick={HandleDeleteConstituency}>Delete Constituencies</button>
 
-                                        </div>
-                                    )}
-                                </div>
-                            )}
                         </div>
                         <div
                             className={`data-modification-details-tab ${activeTab === "candidates" ? "data-modification-details-tab--active" : ""
@@ -93,18 +38,7 @@ const DataModification = ({ user, onLogout }) => {
                             onClick={() => setActiveTab("candidates")}
                         >
                             Candidate Data
-                            {activeTab === "candidates" && (
-                                <div className="modification-data-options">
-                                <button  onClick={toggleDropdown}></button>
-                                    {showDropdown && (
-                                        <div className="dropdown-content">
-                                            <button onClick={HandleUpdateCandidates}>Update Candidates</button>
-                                            <button onClick={HandleDeleteCandidates}>Delete Candidates</button>
 
-                                        </div>
-                                    )}
-                                </div>
-                            )}
                         </div>
                         <div
                             className={`data-modification-details-tab ${activeTab === "voters" ? "data-modification-details-tab--active" : ""
@@ -112,26 +46,51 @@ const DataModification = ({ user, onLogout }) => {
                             onClick={() => setActiveTab("voters")}
                         >
                             Voters Data
-                            {activeTab === "voters" && (
-                                <div className="modification-data-options">
-                                <button  onClick={toggleDropdown}></button>
-                                    {showDropdown && (
-                                        <div className="dropdown-content">
-                                          
-                                            <button onClick={HandleUpdateVoters}>Update Voters</button>
-                                            <button onClick={HandleDeleteVoters}>Delete Voters</button>
 
-                                        </div>
-                                    )}
-                                </div>
-                            )}
                         </div>
                     </div>
-                </div>
-                <div className="data-modification-data-container">
 
+                    <div className="data-modification-data-container">
+                        {activeTab === "states" && (
+                            <div className="modification-data-options">
+                                <div className="modification-data-options-title">
+                                    <h1>State Data Modification</h1>
+                                </div>
+                                <StateDataModification />
+                            </div>
+
+                        )}
+                        {activeTab === "constituencies" && (
+                            <div className="modification-data-options">
+                                <div className="modification-data-options-title">
+                                    <h1>Constituencies Data Modification</h1>
+                                </div>
+
+                                <ConstituenciesDataModification />
+                            </div>
+                        )}
+                        {activeTab === "candidates" && (
+                            <div className="modification-data-options">
+                                <div className="modification-data-options-title">
+                                    <h1>Candidates Data Modification</h1>
+                                </div>
+                                <CandidatesDataModification />
+                            </div>
+                        )}
+
+                        {activeTab === "voters" && (
+                            <div className="modification-data-options">
+                                <div className="modification-data-options-title">
+                                    <h1>Voters Data Modification</h1>
+                                </div>
+                                <VoterDataModification />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
+
+            <ToastContainer />
         </>
     );
 };

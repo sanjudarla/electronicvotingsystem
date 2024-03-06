@@ -7,7 +7,7 @@
 }
 
 .data-modification-menu {
-    display: flex;
+    display: grid;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -16,10 +16,14 @@
 
 .data-modification-details-tabs {
     display: flex;
+    justify-content: center;
     border-bottom: 1px solid #ddd;
+    margin-top: 20px;
 }
 
 .data-modification-details-tab {
+    display: flex;
+    justify-content: center;
     padding: 10px 20px;
     cursor: pointer;
     border-bottom: 2px solid transparent;
@@ -34,8 +38,7 @@
 }
 
 .modification-data-options {
-    display: flex;
-    justify-content: flex-end;
+    width: 100%;
     margin-top: 20px;
 }
 .modification-data-options button 
@@ -51,37 +54,60 @@
 .modification-data-options button:hover {
   background: #0069d9;
 }
-
-  
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content button {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    background-color: transparent;
-    border: none;
+.data-modification-data-container{
+    display: grid;
+    justify-content: center;
     width: 100%;
-    text-align: left;
 }
-
-.dropdown-content button:hover {
+.modification-data-options-title{
+    width: 100%;
     background-color: #ddd;
 }
-.modification-data-options
-{
-    position: relative;
-    display: inline-block;
+.modification-actions{
+    display: flex;
+    justify-content: center;
 }
-
-.modification-data-options:hover .dropdown-content {
-    display: block;
+.state-form-container{
+    margin-top: 20px;
 }
+.state-list-container{
+    margin-top: 20px;
+}
+.state-form-container button{
+    margin-left: 10px;
+    margin-top:10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    background: #57a958;
+    color: #fff;
+    cursor: pointer;
+}
+.modification-form-container {
+    margin-top: 20px;
+  }
+  
+.modification-form-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+.modification-form-container th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-size: x-small;
+  }
+  
+.modification-form-container th {
+    background-color: #f2f2f2;
+  }
+  
+.modification-form-container tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+.modification-form-containertr:hover {
+    background-color: #ddd;
+  }
+  

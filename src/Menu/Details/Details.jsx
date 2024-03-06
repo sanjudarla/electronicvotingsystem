@@ -140,65 +140,71 @@ const Details = ({ user, onLogout }) => {
                     </div>
                 </div>
                 {activeTab === "candidates" && (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>State</th>
-                                <th>Party</th>
-                                <th>Constituency</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredCandidates.map(candidate => (
-                                <tr key={candidate.candidateId}>
-                                    <td>{candidate.candidateName}</td>
-                                    <td>{statesLookup[candidate.stateId].stateName}</td>
-                                    <td>{partiesLookup[candidate.partyId].partyName}</td>
-                                    <td>{constituenciesLookup[candidate.constituencyId].constituencyName}</td>
+                    <div className="details__candidates-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>State</th>
+                                    <th>Party</th>
+                                    <th>Constituency</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {filteredCandidates.map(candidate => (
+                                    <tr key={candidate.candidateId}>
+                                        <td>{candidate.candidateName}</td>
+                                        <td>{statesLookup[candidate.stateId].stateName}</td>
+                                        <td>{partiesLookup[candidate.partyId].partyName}</td>
+                                        <td>{constituenciesLookup[candidate.constituencyId].constituencyName}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
                 {activeTab === "states" && (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>StateName</th>
-                                <th>Number of constituencies</th>
-                                <th>Number of Candidates up to now</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {states.map(state => (
-                                <tr key={state.stateId}>
-                                    <td>{state.stateName}</td>
-                                    <td>{constituencies.filter(constituency => constituency.stateId === state.stateId).length}</td>
-                                    <td>{candidates.filter(candidate => candidate.stateId === state.stateId).length}</td>
+                    <div className="details__candidates-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>StateName</th>
+                                    <th>Number of constituencies</th>
+                                    <th>Number of Candidates up to now</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {states.map(state => (
+                                    <tr key={state.stateId}>
+                                        <td>{state.stateName}</td>
+                                        <td>{constituencies.filter(constituency => constituency.stateId === state.stateId).length}</td>
+                                        <td>{candidates.filter(candidate => candidate.stateId === state.stateId).length}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
 
                 {activeTab === "parties" && (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>PartyName</th>
-                                <th>Number of Candidates</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {parties.map(party => (
-                                <tr key={party.partyId}>
-                                    <td>{party.partyName}</td>
-                                    <td>{candidates.filter(candidate => candidate.partyId === party.partyId).length}</td>
+                    <div className="details__candidates-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>PartyName</th>
+                                    <th>Number of Candidates</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {parties.map(party => (
+                                    <tr key={party.partyId}>
+                                        <td>{party.partyName}</td>
+                                        <td>{candidates.filter(candidate => candidate.partyId === party.partyId).length}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
 
                 {activeTab === "constituencies" && (
@@ -247,30 +253,32 @@ const Details = ({ user, onLogout }) => {
                                 {stateConstituencies.length === 0 ? (
                                     <p>No data available for {statesLookup[selectedState].stateName} </p>
                                 ) : (
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Constituency Name</th>
-                                                <th>Voter Count</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {stateConstituencies
-                                                .filter(constituency => {
-                                                    const voteCount = voter.filter(vote => vote.constituencyId === constituency.constituencyId).length;
-                                                    return voteCount > 0;
-                                                })
-                                                .map((constituency, index) => {
-                                                    const voteCount = voter.filter(vote => vote.constituencyId === constituency.constituencyId).length;
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>{constituency.constituencyName}</td>
-                                                            <td>{voteCount}</td>
-                                                        </tr>
-                                                    );
-                                                })}
-                                        </tbody>
-                                    </table>
+                                    <div className="details__candidates-table">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Constituency Name</th>
+                                                    <th>Voter Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {stateConstituencies
+                                                    .filter(constituency => {
+                                                        const voteCount = voter.filter(vote => vote.constituencyId === constituency.constituencyId).length;
+                                                        return voteCount > 0;
+                                                    })
+                                                    .map((constituency, index) => {
+                                                        const voteCount = voter.filter(vote => vote.constituencyId === constituency.constituencyId).length;
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>{constituency.constituencyName}</td>
+                                                                <td>{voteCount}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 )}
                             </div>
                         )}

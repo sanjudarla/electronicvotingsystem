@@ -18,7 +18,7 @@ const Profile = ({ user, onLogout }) => {
             console.log(voterData);
             const stateResponse = await fetch(`http://localhost:5191/api/StateApi/${voterData[0].stateId}`);
             const stateData = await stateResponse.json();
-            const constituencyResponse = await fetch(`http://localhost:5191/api/ConstituencyApi/constitunecybyid/${voterData[0].constituencyId}`);
+            const constituencyResponse = await fetch(`http://localhost:5191/api/ConstituencyApi/constituency/${voterData[0].constituencyId}`);
             const constituencyData = await constituencyResponse.json();
 
             setVoterDetails({
