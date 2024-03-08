@@ -156,9 +156,9 @@ const StateDataModification = () => {
                 <div className="data-modification-data-container">
                     <div className="modification-data-options">
                         <div className="modification-actions">
-                            <button onClick={() => handleAddState()}>Add State</button>
-                            <button onClick={() => handleUpdateState()}>Update State</button>
-                            <button onClick={() => handleDeleteState()}>Delete State</button>
+                            <button id="add" onClick={() => handleAddState()}>Add State</button>
+                            <button id="update" onClick={() => handleUpdateState()}>Update State</button>
+                            <button id="delete" onClick={() => handleDeleteState()}>Delete State</button>
                             <button onClick={() => handleListState()}>List State</button>
                         </div>
                     </div>

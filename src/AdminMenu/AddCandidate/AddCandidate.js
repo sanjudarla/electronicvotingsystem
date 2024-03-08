@@ -143,7 +143,7 @@ const AddCandidate = ({ user, onLogout }) => {
             console.log(candidateData)
             if (step === 3) {
 
-                const response = await fetch("http://localhost:5191/api/CandidateApi", {
+                const response = await fetch("http://localhost:5191/api/CandidateApi/AddCandidate", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -155,7 +155,13 @@ const AddCandidate = ({ user, onLogout }) => {
                     toast.success("Candidate Added Successfully");
                     setCandidateData(getInitialFormData());
                     setStep(1);
-                } else {
+                }
+                else if (response.status === 226) {
+                    const errorMessage = "There is already a candidate With Same Constituency Name And with Same PartyName in That State.";
+                    toast.error(errorMessage);
+                    getInitialFormData()
+                }
+                 else {
                     toast.error("Please  fill out all the fields correctly!");
                 }
             } else {

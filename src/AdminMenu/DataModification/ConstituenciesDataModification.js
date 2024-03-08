@@ -147,9 +147,9 @@ const ConstituenciesDataModification = () => {
                 <div className="data-modification-data-container">
                     <div className="modification-data-options">
                         <div className="modification-actions">
-                            <button onClick={() => HandleAddConstituency()}>Add Constituency</button>
-                            <button onClick={() => HandleUpdateConstituency()}>Update Constituency</button>
-                            <button onClick={() => HandleDeleteConstituency()}>Delete Constituency</button>
+                            <button id="add" onClick={() => HandleAddConstituency()}>Add Constituency</button>
+                            <button id="update" onClick={() => HandleUpdateConstituency()}>Update Constituency</button>
+                            <button id="delete" onClick={() => HandleDeleteConstituency()}>Delete Constituency</button>
                             <button onClick={() => HandleListConstituency()}>List Constituency</button>
                         </div>
                     </div>

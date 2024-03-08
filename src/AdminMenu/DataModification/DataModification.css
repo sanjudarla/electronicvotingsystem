@@ -41,41 +41,49 @@
     width: 100%;
     margin-top: 20px;
 }
-.modification-data-options button 
-{
-  margin-left: 10px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  border: none;
-  background: #007bff;
-  color: #fff;
-  cursor: pointer;
+
+.modification-data-options button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
 }
+
 .modification-data-options button:hover {
-  background: #0069d9;
+    background: #0069d9;
 }
-.data-modification-data-container{
-    display: grid;
+
+.data-modification-data-container {
+    display: inline-flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
 }
-.modification-data-options-title{
+
+.modification-data-options-title {
     width: 100%;
     background-color: #ddd;
 }
-.modification-actions{
+
+.modification-actions {
     display: flex;
     justify-content: center;
 }
-.state-form-container{
+
+.state-form-container {
     margin-top: 20px;
 }
-.state-list-container{
+
+.state-list-container {
     margin-top: 20px;
 }
-.state-form-container button{
+
+.state-form-container button {
     margin-left: 10px;
-    margin-top:10px;
+    margin-top: 10px;
     padding: 5px 10px;
     border-radius: 4px;
     border: none;
@@ -83,31 +91,121 @@
     color: #fff;
     cursor: pointer;
 }
+
 .modification-form-container {
     margin-top: 20px;
-  }
-  
+}
+
 .modification-form-container table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-.modification-form-container th, td {
+}
+
+.modification-form-container th,
+td {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
     font-size: x-small;
-  }
-  
+}
+
 .modification-form-container th {
     background-color: #f2f2f2;
-  }
-  
+}
+
 .modification-form-container tr:nth-child(even) {
     background-color: #f2f2f2;
-  }
-  
+}
+
 .modification-form-containertr:hover {
     background-color: #ddd;
-  }
-  
+}
+
+.data-modification-fetch-container {
+    display: flex;
+    margin: 15px;
+}
+.data-fetch-container{
+    display: flex;
+}
+.data-fetch-container button{
+    background-color: green;
+}
+#delete{
+    background-color: red;
+}
+#update{
+    background-color: rgb(104, 161, 104);
+}
+#add{
+    background-color: #7647a2;
+}
+
+
+.data-modification-form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.data-modification-form-group label {
+    width: 50%;
+    margin-right: 30px;
+}
+
+.data-modification-form-group input {
+    width: 100%;
+}
+
+.f-and-u-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 900px;
+}
+
+.f-and-u-form-container form {
+    display: grid;
+    width: 80%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+}
+.f-and-u-form-main-container{
+    width: 100%;
+    display: flex;
+}
+.f-and-u-form-column-container{
+    max-width: 50%;
+    display: grid;
+    justify-content: left;
+    margin-right: 25px;
+    margin-bottom: 20px;
+}
+
+.f-and-u-form-input-container {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+}
+
+.f-and-u-lable-field{
+    width: 60%;
+    font-size: small;
+}
+
+.f-and-u-form-input-field{
+    width: 40%;
+    box-sizing: border-box;
+}
+.f-and-u-form-submit-button{
+    display: flex;
+    justify-content: center;
+}
+.f-and-u-form-submit-button button{
+    background-color: rgb(107, 152, 107);
+}

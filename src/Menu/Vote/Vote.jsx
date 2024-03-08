@@ -133,6 +133,9 @@ const Vote = ({ user, onLogout }) => {
             <MainNavBar user={user} onLogout={onLogout} />
 
             <div className="cast-vote-container">
+            <div className="election-details-fetch-container">
+                
+            </div>
                 <h1 className="cast-vote-title">Cast Your Vote!</h1>
 
                 {candidates[0] && (

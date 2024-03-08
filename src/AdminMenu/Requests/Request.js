@@ -103,6 +103,7 @@ const Request = ({ user, onLogout }) => {
                 });
 
                 if (response.ok) {
+                    
                     fetchRequests();
                     window.location.reload();
                 } else {

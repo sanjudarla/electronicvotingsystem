@@ -9,8 +9,9 @@ const CandidatesDataModification = () => {
     const [showUpdateCandidatesTab, setShowUpdateCandidatesTab] = useState(false);
     const [showDeleteCandidatesTab, setShowDeleteCandidatesTab] = useState(false);
     const [showListCandidatesTab, setShowListCandidatesTab] = useState(false);
+    const [showFetchCandidateDetailsTab, setshowFetchCandidateDetailsTab] = useState(false);
     const [candidateData, setCandidateData] = useState([]);
-    const [updateCandidateId, setUpdateCandidateId] = useState('');
+    const [updateCandidateId, setupdateCandidateId] = useState('');
     const [updateCandidateName, setUpdateCandidateName] = useState('');
     const [updateCandidateConstituencyId, setUpdateCandidateConstituencyId] = useState('');
     const [updateCandidatePartyId, setUpdateCandidatePartyId] = useState('');
@@ -32,7 +33,7 @@ const CandidatesDataModification = () => {
             const response = await fetch('http://localhost:5191/api/CandidateApi');
             const data = await response.json();
             setCandidateData(data);
-            console.log(data)
+
         } catch (error) {
             console.error('Error fetching candidate data:', error);
         }
@@ -43,14 +44,56 @@ const CandidatesDataModification = () => {
     const HandleUpdateCandidates = () => {
         setShowUpdateCandidatesTab(true)
         setShowListCandidatesTab(false)
+        setshowFetchCandidateDetailsTab(true)
         setShowDeleteCandidatesTab(false)
 
     }
+    const handleCandidateIdChange = async (e) => {
+        const id = e.target.value;
+        setupdateCandidateId(id);
+    };
+
+    const handleFetchCandidateDetails = async (e) => {
+        e.preventDefault()
+        if (updateCandidateId) {
+
+            try {
+                const response = await fetch(`http://localhost:5191/api/CandidateApi/${updateCandidateId}`);
+                const data = await response.json();
+                debugger;
+                console.log(data);
+                console.log(response.status)
+                if (response.status === 200) {
+                    setUpdateCandidateName(data[0].candidateName);
+                    setUpdateCandidateGender(data[0].gender);
+                    setUpdateCandidateDateOfBirth(data[0].dateofBirth);
+                    setUpdateCandidatePartyId(data[0].partyId);
+                    setUpdateCandidateConstituencyId(data[0].constituencyId);
+                    setUpdateCandidateStateId(data[0].stateId);
+                    setUpdateCandidateAddress(data[0].address);
+                    setUpdateCandidateMobileNumber(data[0].mobileNumber);
+                    setUpdateCandidateEmailAddress(data[0].emailAddress);
+
+                } else if(response.status === 404) {
+                    toast.error("Candidate Not Found");
+                    clearCandidateStateForm();
+                }
+                else{
+                    toast.error("Failed to fetch candidate details:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error fetching voter details:", error);
+            }
+        } else {
+            toast.error("Please enter a Voter ID");
+        }
+    }
+
     //Candidate Data handles
 
     const handleSubmitUpdateCandidate = async (e) => {
         e.preventDefault();
-    
+
         try {
             const response = await fetch(`http://localhost:5191/api/CandidateApi/${updateCandidateId}`, {
                 method: 'PUT',
@@ -71,34 +114,15 @@ const CandidatesDataModification = () => {
                     // Add more fields as needed
                 })
             });
-    
+
             if (response.status === 200) {
                 toast.success("Candidate Updated Successfully");
                 fetchCandidateData();
                 // Clear input fields after successful update
-                setUpdateCandidateId('');
-                setUpdateCandidateName('');
-                setUpdateCandidateConstituencyId('');
-                setUpdateCandidatePartyId('');
-                setUpdateCandidateDateOfBirth('');
-                setUpdateCandidateGender('');
-                setUpdateCandidateMobileNumber('');
-                setUpdateCandidateStateId('');
-                setUpdateCandidateEmailAddress('');
-                setUpdateCandidateAddress('');
+                clearCandidateStateForm();
             } else if (response.status === 404) {
                 toast.error("Candidate Not Found");
-                // Clear input fields after unsuccessful update
-                setUpdateCandidateId('');
-                setUpdateCandidateName('');
-                setUpdateCandidateConstituencyId('');
-                setUpdateCandidatePartyId('');
-                setUpdateCandidateDateOfBirth('');
-                setUpdateCandidateGender('');
-                setUpdateCandidateMobileNumber('');
-                setUpdateCandidateStateId('');
-                setUpdateCandidateEmailAddress('');
-                setUpdateCandidateAddress('');
+
             } else {
                 console.error('Failed to update candidate:', response.statusText);
             }
@@ -106,10 +130,23 @@ const CandidatesDataModification = () => {
             console.error('Error updating candidate:', error);
         }
     };
-    
+    const clearCandidateStateForm = () => {
+        setupdateCandidateId('');
+        setUpdateCandidateName('');
+        setUpdateCandidateConstituencyId('');
+        setUpdateCandidatePartyId('');
+        setUpdateCandidateDateOfBirth('');
+        setUpdateCandidateGender('');
+        setUpdateCandidateMobileNumber('');
+        setUpdateCandidateStateId('');
+        setUpdateCandidateEmailAddress('');
+        setUpdateCandidateAddress('');
+    }
+
     const HandleDeleteCandidates = () => {
         setShowDeleteCandidatesTab(true)
         setShowListCandidatesTab(false)
+        setshowFetchCandidateDetailsTab(false)
         setShowUpdateCandidatesTab(false)
     }
 
@@ -127,10 +164,10 @@ const CandidatesDataModification = () => {
             if (response.status === 200) {
                 toast.success("Candidate Deleted Successfully");
                 fetchCandidateData();
-                setUpdateCandidateId('');
+                setupdateCandidateId('');
             } else if (response.status === 404) {
                 toast.error("Candidate Not Found");
-                setUpdateCandidateId('');
+                setupdateCandidateId('');
             } else {
                 console.error('Failed to delete candidate:', response.statusText);
             }
@@ -141,6 +178,7 @@ const CandidatesDataModification = () => {
     const HandleListCandidates = () => {
         setShowListCandidatesTab(true)
         setShowUpdateCandidatesTab(false)
+        setshowFetchCandidateDetailsTab(false)
         setShowDeleteCandidatesTab(false)
     }
     return (
@@ -150,89 +188,181 @@ const CandidatesDataModification = () => {
                 <div className="data-modification-data-container">
                     <div className="modification-data-options">
                         <div className="modification-actions">
-                            <button onClick={() => HandleUpdateCandidates()}>Update Candidates</button>
-                            <button onClick={() => HandleDeleteCandidates()}>Delete Candidates</button>
+                            <button id="update" onClick={() => HandleUpdateCandidates()}>Update Candidates</button>
+                            <button id="delete" onClick={() => HandleDeleteCandidates()}>Delete Candidates</button>
                             <button onClick={() => HandleListCandidates()}>List Candidates</button>
                         </div>
                     </div>
                 </div>
+                <div className="data-modification-fetch-container">
+                    {showFetchCandidateDetailsTab && (
+                        <div className="data-fetch-container">
+                            <input
+                                type="text"
+                                value={updateCandidateId}
+                                onChange={(e) => handleCandidateIdChange(e)}
+                                placeholder="Enter Candidate ID"
+                            />
+                            <button onClick={(e) => handleFetchCandidateDetails(e)}>Fetch Details</button>
+                        </div>
+                    )}
+                </div>
 
                 <div className="data-modification-form-container">
                     {showUpdateCandidatesTab && (
-                        <div className="state-form-container">
+                        <div className="f-and-u-form-container">
                             <form onSubmit={handleSubmitUpdateCandidate}>
-                                <input
-                                    type="text"
-                                    value={updateCandidateId}
-                                    onChange={(e) => setUpdateCandidateId(e.target.value)}
-                                    placeholder="Enter Candidate ID"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateName}
-                                    onChange={(e) => setUpdateCandidateName(e.target.value)}
-                                    placeholder="Enter Candidate Name"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateConstituencyId}
-                                    onChange={(e) => setUpdateCandidateConstituencyId(e.target.value)}
-                                    placeholder="Enter Candidate Constituency ID"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidatePartyId}
-                                    onChange={(e) => setUpdateCandidatePartyId(e.target.value)}
-                                    placeholder="Enter Candidate Party ID"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="date"
-                                    value={updateCandidateDateOfBirth}
-                                    onChange={(e) => setUpdateCandidateDateOfBirth(e.target.value)}
-                                    placeholder="Enter Candidate Date of Birth"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateGender}
-                                    onChange={(e) => setUpdateCandidateGender(e.target.value)}
-                                    placeholder="Enter Candidate Gender"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateMobileNumber}
-                                    onChange={(e) => setUpdateCandidateMobileNumber(e.target.value)}
-                                    placeholder="Enter Candidate Mobile Number"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateStateId}
-                                    onChange={(e) => setUpdateCandidateStateId(e.target.value)}
-                                    placeholder="Enter Candidate State ID"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateEmailAddress}
-                                    onChange={(e) => setUpdateCandidateEmailAddress(e.target.value)}
-                                    placeholder="Enter Candidate Email Address"
-                                    required // This makes the input required
-                                />
-                                <input
-                                    type="text"
-                                    value={updateCandidateAddress}
-                                    onChange={(e) => setUpdateCandidateAddress(e.target.value)}
-                                    placeholder="Enter Candidate Address"
-                                    required // This makes the input required
-                                />
-                                {/* Add more required fields as needed */}
-                                <button type="submit">Update Candidate</button>
+                                <div className="f-and-u-form-main-container">
+                                    <div className="f-and-u-form-column-container">
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate ID</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateId}
+                                                    onChange={(e) => handleCandidateIdChange(e)}
+                                                    placeholder="Enter Candidate ID"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Name</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateName}
+                                                    onChange={(e) => setUpdateCandidateName(e.target.value)}
+                                                    placeholder="Enter Candidate Name"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Constituency ID</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateConstituencyId}
+                                                    onChange={(e) => setUpdateCandidateConstituencyId(e.target.value)}
+                                                    placeholder="Enter Candidate Constituency ID"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Party ID</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidatePartyId}
+                                                    onChange={(e) => setUpdateCandidatePartyId(e.target.value)}
+                                                    placeholder="Enter Candidate Party ID"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Date Of Birth</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="date"
+                                                    value={updateCandidateDateOfBirth}
+                                                    onChange={(e) => setUpdateCandidateDateOfBirth(e.target.value)}
+                                                    placeholder="Enter Candidate Date of Birth"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="f-and-u-form-column-container">
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Gender</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateGender}
+                                                    onChange={(e) => setUpdateCandidateGender(e.target.value)}
+                                                    placeholder="Enter Candidate Gender"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Mobile Number</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateMobileNumber}
+                                                    onChange={(e) => setUpdateCandidateMobileNumber(e.target.value)}
+                                                    placeholder="Enter Candidate Mobile Number"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate State ID</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateStateId}
+                                                    onChange={(e) => setUpdateCandidateStateId(e.target.value)}
+                                                    placeholder="Enter Candidate State ID"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Email Address</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateEmailAddress}
+                                                    onChange={(e) => setUpdateCandidateEmailAddress(e.target.value)}
+                                                    placeholder="Enter Candidate Email Address"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="f-and-u-form-input-container">
+                                            <div className="f-and-u-lable-field">
+                                                <label>Candidate Address</label>
+                                            </div>
+                                            <div className="f-and-u-form-input-field">
+                                                <input
+                                                    type="text"
+                                                    value={updateCandidateAddress}
+                                                    onChange={(e) => setUpdateCandidateAddress(e.target.value)}
+                                                    placeholder="Enter Candidate Address"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="f-and-u-form-submit-button">
+                                    <button type="submit">Update Candidate</button>
+                                </div>
+
+
                             </form>
 
                         </div>
@@ -246,7 +376,7 @@ const CandidatesDataModification = () => {
                                 <input
                                     type="text"
                                     value={updateCandidateId}
-                                    onChange={(e) => setUpdateCandidateId(e.target.value)}
+                                    onChange={(e) => setupdateCandidateId(e.target.value)}
                                     placeholder="Enter Candidate ID to Delete"
                                 />
                                 <button type="submit">Delete Candidate</button>
@@ -292,7 +422,7 @@ const CandidatesDataModification = () => {
                     </div>
                 )}
 
-            </div>
+            </div >
 
 
 
