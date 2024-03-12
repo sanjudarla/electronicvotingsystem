@@ -14,6 +14,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #333;
+  background-color: rgb(226, 226, 218);
 }
 
 .candidates-table {
@@ -67,4 +68,9 @@
 .vote-cell button:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+.election-details-fetch-container{
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }

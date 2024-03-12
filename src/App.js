@@ -24,6 +24,7 @@ import Blog1 from './StartingContent/Bolgs/Blog1';
 import Vote from './Menu/Vote/Vote';
 import PostElection from './AdminMenu/PostElections/PostElection';
 import DataModification from './AdminMenu/DataModification/DataModification';
+import Results from './Menu/Results/Results';
 
 
 
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/apply-voter-id" element={<VoteApply user={user} onLogout={handleLogout}/>} />
           <Route path="/requests" element={<Request  user={user} onLogout={handleLogout}/>} />
           <Route path="/details-page" element={<Details  user={user} onLogout={handleLogout}/>} />
+          <Route path="/results" element={<Results  user={user} onLogout={handleLogout}/>} />
 
 
           <Route path="/add-candidate" element={<AddCandidate  user={user} onLogout={handleLogout}/>} />
