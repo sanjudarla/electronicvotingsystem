@@ -30,6 +30,7 @@ import Results from './Menu/Results/Results';
 
 const App = () => {
   const [user, setUser] = useState(null);
+  
 
   
   useEffect(() => {

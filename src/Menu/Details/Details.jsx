@@ -3,6 +3,8 @@ import MainNavBar from "../../NavBarFile/NavBar/MainNavBar";
 import "./Details.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Results from "../Results/Results";
+import ResultDetails from "./ResultDetails";
 const Details = ({ user, onLogout }) => {
     const [candidates, setCandidates] = useState([]);
     const [parties, setParties] = useState([]);
@@ -136,8 +138,15 @@ const Details = ({ user, onLogout }) => {
                         className={`details__tab ${activeTab === "voter" ? "details__tab--active" : ""}`}
                         onClick={() => setActiveTab("voter")}
                     >
-                        Voters list
+                        Voter List
                     </div>
+                    <div
+                        className={`details__tab ${activeTab === "results" ? "details__tab--active" : ""}`}
+                        onClick={() => setActiveTab("results")}
+                    >
+                        Results
+                    </div>
+
                 </div>
                 {activeTab === "candidates" && (
                     <div className="details__candidates-table">
@@ -282,7 +291,17 @@ const Details = ({ user, onLogout }) => {
                                 )}
                             </div>
                         )}
+
                     </div>
+                )}
+                {activeTab === "results" && (
+                    <div>
+                        <div className="details__section">
+                            <h2 className="details__section-title">Results Details</h2>
+                            <ResultDetails />
+                        </div>
+                    </div>
+
                 )}
 
 

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import NationalSymbol from '../../Images/NationalSymbol.png';
 import Logo from '../../Images/Logo.jpg';
 
+
 const MainNavBar = ({ user, onLogout }) => {
     const [showDropdown, setShowDropdown] = useState(false);
+    
     const navigate = useNavigate();
 
     const toggleDropdown = () => {
@@ -18,9 +20,10 @@ const MainNavBar = ({ user, onLogout }) => {
     const navigateToVoterCard = () => {
         navigate("/voter-card");
     }
-
+   
     return (
         <>
+        
             <div className="Nav-Bar-box">
                 <div className="Nav-bar-container">
                     <div className="national-symbol-png">
@@ -47,6 +50,7 @@ const MainNavBar = ({ user, onLogout }) => {
                                             <button onClick={onLogout}>Logout</button>
                                             <button onClick={navigateToProfile}>Profile</button>
                                             <button onClick={navigateToVoterCard}>Voter Card</button>
+                                            
                                            
                                         </div>
                                     )}
@@ -63,6 +67,7 @@ const MainNavBar = ({ user, onLogout }) => {
                     </div>
                 </div>
             </div>
+           
         </>
     );
 };

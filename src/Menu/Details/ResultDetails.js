@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MainNavBar from "../../NavBarFile/NavBar/MainNavBar";
-import './Results.css'
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import '../Results/Results.css'
+import { toast } from "react-toastify";
 
-const Results = ({ user, onLogout }) => {
+const ResultDetails = () => {
     const [stateNames, setStateNames] = useState([]);
     const [electionTitles, setElectionTitles] = useState([]);
     const [selectedStateId, setSelectedStateId] = useState('');
@@ -19,7 +17,7 @@ const Results = ({ user, onLogout }) => {
     const [showNoDetails, setShowNoDetails] = useState(false);
     const [constituenciesCount, setConstituenciesCount] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
-    const [votingData, setVotingData] = useState(false);
+    const [resultsData, setResultsData] = useState(false);
     const [candidates, setCandidates] = useState([]);
     const [constituencies, setConstituencies] = useState([]);
 
@@ -85,7 +83,6 @@ const Results = ({ user, onLogout }) => {
             fetchElectionTitles(selectedStateId);
         }
     }, [selectedStateId]);
-
     const constituenciesLookup = constituencies.reduce((acc, constituency) => {
         acc[constituency.constituencyId] = constituency;
         return acc;
@@ -110,19 +107,19 @@ const Results = ({ user, onLogout }) => {
 
     const handleViewDetails = () => {
         setShowDetails(true);
-        fetchVotingData(); // Show details when button is clicked
+        debugger;
+        fetchResultsData();
     };
-
     const handleStateChange = (e) => {
         setSelectedStateId(e.target.value);
-        setDataFetched(false); // Reset data fetched state when state changes
-        setShowNoDetails(false); // Reset showNoDetails state when state changes
+        setDataFetched(false);
+        setShowNoDetails(false);
     };
 
     const handleElectionChange = (e) => {
         setSelectedElectionId(e.target.value);
-        setDataFetched(false); // Reset data fetched state when election changes
-        setShowNoDetails(false); // Reset showNoDetails state when election changes
+        setDataFetched(false);
+        setShowNoDetails(false);
     };
 
     const handleSubmit = async () => {
@@ -131,84 +128,40 @@ const Results = ({ user, onLogout }) => {
             const data = await response.json();
 
             setPartyId(data.partyId);
-            setConstituenciesCount(data.count)
+            setConstituenciesCount(data.count);
+
             if (response.status === 200) {
                 setDataFetched(true);
-            }
-            else {
-                setShowNoDetails(true); // Show "No Details Available" message
+                setShowNoDetails(false); // Reset showNoDetails state
+            } else {
                 setDataFetched(false);
+                setShowNoDetails(true); // Show "No Election Results Available" message
+                setResultsData([]); // Clear previous results data
             }
-
         } catch (error) {
             setError("Error fetching party ID: " + error.message);
         }
     };
 
-    const fetchVotingData = async () => {
+
+    const fetchResultsData = async () => {
         try {
-            const response = await fetch(`http://localhost:5191/api/VotingApi/ElectionId/${selectedElectionId}`);
+            const response = await fetch(`http://localhost:5191/api/ResultsApi/ElectionId/${selectedElectionId}`);
             if (!response.ok) {
-                throw new Error('Failed to fetch voting data');
+               toast.error("There is No Data Available.Please try Again After Some Time")
             }
             const data = await response.json();
 
-            setVotingData(data);
+            setResultsData(data);
         } catch (error) {
-            setError("Error fetching voting data: " + error.message);
+            setError("Error fetching Results: " + error.message);
         }
     };
 
-    const handlePostResults = async () => {
-        try {
-            console.log(votingData)
-            if (!votingData || votingData.length === 0) {
-                toast.error('No data available. Please click on "View Details" to fetch data before posting.');
-                return;
-            }
 
-            const currentDate = new Date().toISOString().split('T')[0];
-            const resultsToPost = [];
-           
+    // Call fetchVotingData function
 
-            // Iterate through votingData and prepare data for posting
-            votingData.forEach(candidateData => {
-                const postData = {
-                    electionId: candidateData.electionId,
-                    stateId: candidateData.stateId,
-                    constituencyId: candidateData.constituencyId,
-                    partyId: candidateData.partyId,
-                    candidateId: candidateData.candidateId,
-                    resultDate: currentDate,
-                    votingCount: 1
 
-                };
-                console.log(postData);
-
-                resultsToPost.push(postData); // Push prepared data to array
-            });
-
-            // Post each result individually
-            for (const postData of resultsToPost) {
-                const response = await fetch('http://localhost:5191/api/ResultsApi', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                });
-
-                if (response.ok) {
-                   console.log("Successfully Posted")
-                } else {
-                    console.log("Failed to post")
-                }
-            }
-
-        } catch (error) {
-            console.error('Error posting results:', error);
-        }
-    };
 
 
     if (loading) {
@@ -221,7 +174,7 @@ const Results = ({ user, onLogout }) => {
 
     return (
         <>
-            <MainNavBar user={user} onLogout={onLogout} />
+
             <div className="results-main-container">
                 <div className="results-container-box">
                     <div className="results-container-title">
@@ -242,13 +195,16 @@ const Results = ({ user, onLogout }) => {
                                 ))
                             ) : (
                                 <option disabled>No Election Results Available</option>
+
                             )}
                         </select>
+
+
+
                         <button onClick={handleSubmit}>Submit</button>
-                        <button onClick={handlePostResults}>Post Results</button>
                     </div>
                     <div className="results-table-container">
-                        {dataFetched ? (
+                        {dataFetched && electionTitles.length > 0 ? (
                             <table>
                                 <thead>
                                     <tr>
@@ -272,10 +228,13 @@ const Results = ({ user, onLogout }) => {
                                 </tbody>
                             </table>
                         ) : (
-                            showNoDetails && <div> No Details Available</div>
+                            showNoDetails && <div>No Election Results Available</div>
                         )}
                     </div>
-                    {showDetails && votingData.length > 0 && (
+
+
+                    {showDetails && resultsData.length > 0 && (
+
                         <div className="results-table-container">
                             <h2>Election Details</h2>
                             <table>
@@ -290,40 +249,28 @@ const Results = ({ user, onLogout }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {Object.entries(votingData.reduce((acc, data) => {
-                                        const candidateId = data.candidateId;
-                                        if (!acc[candidateId]) {
-                                            acc[candidateId] = {
-                                                stateId: data.stateId,
-                                                electionId: data.electionId,
-                                                partyId: data.partyId,
-                                                constituencyId: data.constituencyId,
-                                                candidateId: candidateId,
-                                                count: 0
-                                            };
-                                        }
 
-                                        acc[candidateId].count++;
-                                        return acc;
-                                    }, {})).map(([candidateId, candidateData]) => (
-                                        <tr key={candidateId}>
-                                            <td>{candidateData.stateId && statesLookup[candidateData.stateId] ? statesLookup[candidateData.stateId].stateName : 'N/A'}</td>
-                                            <td>{candidateData.electionId && electionLookup[candidateData.electionId] ? electionLookup[candidateData.electionId].electionName : 'N/A'}</td>
-                                            <td>{candidateData.partyId && partiesLookup[candidateData.partyId] ? partiesLookup[candidateData.partyId].partyName : 'N/A'}</td>
-                                            <td>{candidateData.constituencyId && constituenciesLookup[candidateData.constituencyId] ? constituenciesLookup[candidateData.constituencyId].constituencyName : 'N/A'}</td>
-                                            <td>{candidateData.candidateId && candidatesLookup[candidateData.candidateId] ? candidatesLookup[candidateData.candidateId].candidateName : 'N/A'}</td>
-                                            <td>{candidateData.count}</td>
+                                    {resultsData.map(result => (
+                                        <tr key={result.resultsId}>
+                                            <td>{statesLookup[result.stateId]?.stateName || 'N/A'}</td>
+                                            <td>{electionLookup[result.electionid]?.electionName || 'N/A'}</td>
+                                            <td>{partiesLookup[result.partyId]?.partyName || 'N/A'}</td>
+                                            <td>{constituenciesLookup[result.constituencyId]?.constituencyName || 'N/A'}</td>
+                                            <td>{candidatesLookup[result.candidateId]?.candidateName || 'N/A'}</td>
+                                            <td>{result.votingCount || 'N/A'}</td>
                                         </tr>
                                     ))}
+
                                 </tbody>
                             </table>
                         </div>
                     )}
+
+
                 </div>
             </div>
-            <ToastContainer />
         </>
     );
 };
 
-export default Results;
+export default ResultDetails;

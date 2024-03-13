@@ -62,7 +62,7 @@ const MainPage = ({ user, onLogout }) => {
                 <div className="menu-row">
                     {isRegularUser &&
                         <>
-                            
+
                             <div className="menu-item">
                                 <a href="/main-page"><img src={Vote} alt="Voting" /></a>
                                 <button onClick={VoterHandleClick}>Vote</button>
@@ -70,6 +70,10 @@ const MainPage = ({ user, onLogout }) => {
                             <div className="menu-item">
                                 <a href="/main-page"><img src={VoterId} alt="Apply For Voter Id" /></a>
                                 <button onClick={ApplyVoterHandleClick}>Apply for Voter Id</button>
+                            </div>
+                            <div className="menu-item">
+                                <a href="/main-page"><img src={Home} alt="Details" /></a>
+                                <button onClick={DetailsHandleClick}>Details</button>
                             </div>
                         </>
                     }
@@ -88,6 +92,7 @@ const MainPage = ({ user, onLogout }) => {
                                 <a href="/main-page"><img src={UpdateData} alt="Data Modification" /></a>
                                 <button onClick={DataModificationHandleClick}>Data Modification</button>
                             </div>
+                            
                         </>
                     }
                     {isElectoralOfficer &&
@@ -99,6 +104,10 @@ const MainPage = ({ user, onLogout }) => {
                             <div className="menu-item">
                                 <a href="/main-page"><img src={UpdateData} alt="Data Modification" /></a>
                                 <button onClick={DataModificationHandleClick}>Data Modification</button>
+                            </div>
+                            <div className="menu-item">
+                                <a href="/main-page"><img src={Home} alt="Details" /></a>
+                                <button onClick={DetailsHandleClick}>Details</button>
                             </div>
                         </>
                     }
@@ -113,14 +122,20 @@ const MainPage = ({ user, onLogout }) => {
                             </div>
                         </>
                     }
-                    <div className="menu-item">
-                        <a href="/main-page"><img src={Results} alt="results" /></a>
-                        <button onClick={AddResultsHandleClick}>Results</button>
-                    </div>
-                    <div className="menu-item">
-                        <a href="/main-page"><img src={Home} alt="Details" /></a>
-                        <button onClick={DetailsHandleClick}>Details</button>
-                    </div>
+                    {isAdminUser &&
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={Results} alt="results" /></a>
+                            <button onClick={AddResultsHandleClick}>Results Data</button>
+                        </div>
+                    }
+                    {isAdminUser &&
+                        <div className="menu-item">
+                            <a href="/main-page"><img src={Home} alt="Details" /></a>
+                            <button onClick={DetailsHandleClick}>Details</button>
+                        </div>
+                    }
+
+
                 </div>
             </div>
         </>
